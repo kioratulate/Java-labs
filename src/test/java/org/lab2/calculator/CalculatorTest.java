@@ -14,18 +14,13 @@ class CalculatorTest {
     @Test
     void processExpressionPositiveInput() {
         String expression = "7 - 11 *((8-11)+2*5 + 5.5*7.2 - 100/4)/7.2";
-        try {
-            assertEquals(-26,  calculator.processExpression(expression));
-        }
-        catch (Exception e){
-            System.out.println(e.toString());
-        }
+        assertEquals(-26,  calculator.processExpression(expression));
     }
     @Test
     void processExpressionNegativeInput() {
         String expression = "((8-11)(+2*5 + 5.5*7.2 - 100/4)/7.2";
         try {
-            assertEquals(-26,  calculator.processExpression(expression));
+            calculator.processExpression(expression);
         }
         catch (Exception e){
             System.out.println();

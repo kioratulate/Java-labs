@@ -159,7 +159,7 @@ public class Calculator {
 
     /**
      * Лексический анализ выражения, разбиение на токены
-     * @param expressionText
+     * @param expressionText разбираемое выражение
      * @return список присуствующих лексем
      */
     private List<Lexeme> lexAnalyze(String expressionText){
