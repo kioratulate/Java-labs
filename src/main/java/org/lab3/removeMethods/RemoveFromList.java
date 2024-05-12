@@ -6,29 +6,31 @@ import org.lab3.common.IMethod;
 import java.util.List;
 
 /**
- * Abstract class for Remove methods of List
- * @param <T> implementation of List, for example ArrayList
- * @param <E> type of content of the list
+ * An abstract class representing remove methods for List implementations.
+ *
+ * @param <T> The type of List implementation, such as ArrayList.
+ * @param <E> The type of content in the list.
  */
 public abstract class RemoveFromList<T extends List<E>, E> implements IMethod<E> {
 
     /**
-     * Testing list
+     * The List being tested.
      */
     T list;
     /**
-     * Index for remove method
+     * The index for the remove operation.
      */
     int ind;
     /**
-     * Used generator
+     * The generator used to create elements.
      */
     IGenerateElement<E> generateElement;
 
     /**
-     * Constructor with specified generateElement and existing list
-     * @param list existing list
-     * @param generateElement a function that creates specific to method elements
+     * Constructs a RemoveFromList object with the specified list and generator.
+     *
+     * @param list             The existing list.
+     * @param generateElement  The function that generates elements specific to the method.
      */
     public RemoveFromList(T list, IGenerateElement<E> generateElement) {
         this.list = list;
@@ -36,11 +38,8 @@ public abstract class RemoveFromList<T extends List<E>, E> implements IMethod<E>
     }
 
     /**
-     * Method to be tested
-     * WARNING! Inside this method should not be any unnecessary operations,
-     * or performance measurement won't be correct
-     *
-     * @param elem element that needs to be provided
+     * Applies the remove operation to the list.
+     * @param elem The element to be removed.
      */
     @Override
     public void apply(E elem) {
@@ -48,9 +47,9 @@ public abstract class RemoveFromList<T extends List<E>, E> implements IMethod<E>
     }
 
     /**
-     * Sets index at which will be passed into remove
+     * Prepares the index for the remove operation.
      *
-     * @return element that required by method
+     * @return The element required by the method.
      */
     @Override
     public abstract E prepareToApply();

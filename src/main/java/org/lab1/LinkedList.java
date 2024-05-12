@@ -1,30 +1,31 @@
 package org.lab1;
 
 /**
- * LinkedList is a container that can contain elements with the same type, organized by Nodes
- * @author Pevtsova Angelina 61 group
- * @param <T> the type LinkedList is containing
+ * LinkedList represents a generic container organized by nodes, capable of holding elements of the same type.
+ *
+ * @author This class is authored by Pevtsova Angelina from the 61 group.
+ *
+ * @param <T> the type of elements contained in the LinkedList
  */
 public class LinkedList<T> {
 
     /**
-     * Head of the list
+     * Represents the head node of the LinkedList.
      */
     private Node<T> head;
     /**
-     * Tail of the list
+     * Represents the tail node of the LinkedList.
      */
     private Node<T> tail;
 
     /**
-     * Size of the list
+     * Represents the size of the LinkedList.
      */
     private int size;
 
 
     /**
-     * Constructor of LinkedList without parameters
-     * Everything sets null, 0
+     * Constructs an empty LinkedList with default values (head and tail set to null, size set to 0).
      */
     public LinkedList(){
         this.head = null;
@@ -33,8 +34,9 @@ public class LinkedList<T> {
     }
 
     /**
-     *  Constructor of LinkedList by other LinkedList
-     * @param list source for initialization
+     * Constructs a LinkedList by copying the elements from another LinkedList.
+     *
+     * @param list the source LinkedList for initialization
      */
     public LinkedList(LinkedList<T> list)
     {
@@ -45,8 +47,9 @@ public class LinkedList<T> {
     }
 
     /**
-     * Returns true if list doesn't contain any elements and false if it does
-     * @return returns true if list is empty, false if it's not
+     * Checks if the LinkedList is empty.
+     *
+     * @return true if the LinkedList is empty, false otherwise
      */
     public boolean empty()
     {
@@ -54,8 +57,9 @@ public class LinkedList<T> {
     }
 
     /**
-     * Adding one element to list to tail
-     * @param data element that has to be added
+     * Adds an element to the tail of the LinkedList.
+     *
+     * @param data the element to be added
      */
     public void add(T data){
         Node<T> newNode = new Node<>(data);
@@ -69,11 +73,13 @@ public class LinkedList<T> {
     }
 
     /**
-     * Adding one element to list at specified position
-     * @param index position element has to be added at
-     * @param data element that has to be added
+     * Adds an element to the LinkedList at the specified index.
+     *
+     * @param index the position at which the element should be added
+     * @param data the element to be added
+     * @throws IndexOutOfBoundsException if the index is out of bounds
      */
-    public void add(int index, T data){
+    public void add(int index, T data) throws IndexOutOfBoundsException {
         if (index>size+1)
             throw new IndexOutOfBoundsException("Index out of bounds");
         Node<T> newNode = new Node<>(data);
@@ -95,8 +101,9 @@ public class LinkedList<T> {
     }
 
     /**
-     * Adding list of elements to list to tail
-     * @param list list that has to be added
+     * Adds all elements from a given LinkedList to the tail of this LinkedList.
+     *
+     * @param list the LinkedList whose elements are to be added
      */
     public void add(LinkedList<T> list)
     {
@@ -107,9 +114,11 @@ public class LinkedList<T> {
         }
     }
     /**
-     * Adding list of elements to list at specified position
-     * @param index position list has to be added at
-     * @param list list that has to be added
+     * Adds all elements from a given LinkedList to this LinkedList at the specified index.
+     *
+     * @param index the position at which the elements should be added
+     * @param list the LinkedList whose elements are to be added
+     * @throws IndexOutOfBoundsException if the index is out of bounds
      */
     public void add(int index, LinkedList<T> list)
     {
@@ -132,10 +141,12 @@ public class LinkedList<T> {
     }
 
     /**
-     * Deleting element from list by index
-     * @param index index of element that has to be deleted
+     * Deletes the element at the specified index from the LinkedList.
+     *
+     * @param index the index of the element to be deleted
+     * @throws IndexOutOfBoundsException if the index is out of bounds
      */
-    public void delete(int index){
+    public void delete(int index) throws IndexOutOfBoundsException {
         if (index>size+1)
             throw new IndexOutOfBoundsException("Index out of bounds");
 
@@ -160,8 +171,9 @@ public class LinkedList<T> {
     }
 
     /**
-     * Deleting element from list by value
-     * @param deletingData value of the element that has to be deleted
+     * Deletes the first occurrence of the specified element from the LinkedList.
+     *
+     * @param deletingData the element to be deleted
      */
     public void delete(T deletingData)
     {
@@ -186,11 +198,13 @@ public class LinkedList<T> {
     }
 
     /**
-     * Get value of the element by index
-     * @param index index of element
-     * @return value of the element
+     * Retrieves the element at the specified index from the LinkedList.
+     *
+     * @param index the index of the element to be retrieved
+     * @return the element at the specified index
+     * @throws IndexOutOfBoundsException if the index is out of bounds
      */
-    public T get(int index)
+    public T get(int index) throws IndexOutOfBoundsException
     {
         Node<T> current = head;
         int ind = 0;
@@ -206,9 +220,10 @@ public class LinkedList<T> {
     }
 
     /**
-     * Determines whether list contains element of not
-     * @param data value of the element
-     * @return true if element is found, false if not
+     * Checks if the LinkedList contains the specified element.
+     *
+     * @param data the element to be checked for existence
+     * @return true if the element is found, false otherwise
      */
     public boolean contains(T data)
     {
@@ -223,9 +238,10 @@ public class LinkedList<T> {
     }
 
     /**
-     * Get index of element by value
-     * @param data value of searched element
-     * @return -1 if element is not found, else index of the found element
+     * Retrieves the index of the first occurrence of the specified element in the LinkedList.
+     *
+     * @param data the element to be searched for
+     * @return the index of the first occurrence of the element, or -1 if not found
      */
     public int getIndex(T data)
     {
@@ -277,7 +293,7 @@ public class LinkedList<T> {
     }
 
     /**
-     * Returns current size of list
+     * Returns current size of list.
      * @return size of list
      */
     public int getSize() {

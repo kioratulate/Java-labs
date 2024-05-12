@@ -4,20 +4,24 @@ import org.lab3.common.IGenerateElement;
 
 import java.util.List;
 
+/**
+ * A method to get the first element of a List.
+ * @param <T> The implementation of List, for example ArrayList.
+ * @param <E> The type of content in the list.
+ */
 public class GetFirstElementList<T extends List<E>, E> extends GetElementList<T, E> {
     /**
-     * Constructor with specified generateElement and existing list
-     * @param list existing list
-     * @param generateElement a function that creates specific to method elements
+     * Constructs a GetFirstElementList with the specified list and element generator.
+     * @param list The existing list.
+     * @param generateElement A function that generates elements specific to the method.
      */
     public GetFirstElementList(T list, IGenerateElement<E> generateElement) {
         super(list, generateElement);
     }
 
     /**
-     * Sets index at 0, which will be passed into get
-     *
-     * @return element that required by method
+     * Sets the index to 0, indicating the first element, which will be passed to the get method.
+     * @return The element required by the method.
      */
     @Override
     public E prepareToApply() {

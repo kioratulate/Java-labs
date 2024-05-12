@@ -3,44 +3,79 @@ package org.lab2.calculator;
 import java.util.*;
 
 /**
- * Класс калькулятора содержащий парсер и вычислитель выражения, встроенные с возможностью добавления функции и переменные
+ * Calculator class containing a parser and expression evaluator, with built-in functionality for adding functions and variables.
  */
 public class Calculator {
-    public HashMap<String, Function> functionTable;
-    public void addFunction(String name, Function func){
+    /**
+     * Table of functions that calculator can use
+     */
+    public HashMap<String, IFunction> functionTable;
+
+    /**
+     * Adds a user-defined function to the calculator.
+     *
+     * @param name The name of the function to add.
+     * @param func The implementation of the function, implementing the IFunction interface.
+     * @throws RuntimeException If a function with the same name already exists in the function table.
+     */
+    public void addFunction(String name, IFunction func) throws RuntimeException{
         if (functionTable.containsKey(name))
             throw new RuntimeException("Redefining of function");
         functionTable.put(name, func);
     }
 
-    public void addVariable(String name, double value){
+    /**
+     * Adds a variable outside the calculation expression.
+     * @param name Name of the variable.
+     * @param value Value of the variable.
+     * @throws RuntimeException If a variable with the same name already exists in the variable table.
+     */
+    public void addVariable(String name, double value) throws RuntimeException{
         if (variableTable.containsKey(name))
             throw new RuntimeException("Redefining of variable");
         variableTable.put(name, value);
     }
+    /**
+     * Edits a variable outside the calculation expression.
+     * @param name Name of the variable.
+     * @param newValue New value of the variable.
+     * @throws RuntimeException If a variable with the given name not exists in the variable table.
+     */
     public void editVariable(String name, double newValue){
         if (!variableTable.containsKey(name))
             throw new RuntimeException("No variable with this name");
         variableTable.put(name, newValue);
     }
 
+    /**
+     * Retrieves a variable from the variable table.
+     * @param name Name of the variable.
+     * @return Value of the variable that was got.
+     * @throws RuntimeException If a variable with the given name not exists in the variable table.
+     */
     public double getVariable(String name){
         if (!variableTable.containsKey(name))
             throw new RuntimeException("No variable with this name");
         return variableTable.get(name);
     }
 
+    /**
+     * Table of variables that the calculator can use.
+     */
     public HashMap<String, Double> variableTable;
 
+    /**
+     * Default constructor.
+     */
     public Calculator() {
         functionTable = getFunctionMap();
         variableTable = new HashMap<>();
     }
 
     /**
-     * Обработка выражения, внутри вызывающая сперва лексический анализ, затем собственно вычисление, возвращает результат выражения
-     * @param expression выражение которое необходимо вычислить
-     * @return результат вычисленного выражения
+     * Processes the expression, first performing lexical analysis, then actual computation, and returns the result of the expression.
+     * @param expression The expression to be evaluated.
+     * @return The result of the evaluated expression.
      */
     public double processExpression(String expression){
         List<Lexeme> lexemes = lexAnalyze(expression);
@@ -49,7 +84,7 @@ public class Calculator {
     }
 
     /**
-     * Используемые лексемы
+     * Lexeme types used.
      */
     private enum LexemeType {
         LEFT_BRACKET, RIGHT_BRACKET,
@@ -70,7 +105,7 @@ public class Calculator {
     }
 
     /**
-     * Лексемы на которые разбивается выражение
+     * Lexemes into which the expression is split.
      */
     private class Lexeme {
         final LexemeType type;
@@ -87,12 +122,12 @@ public class Calculator {
      }
 
     /**
-     * Заполняет таблицу функций функциями по-умолчанию
-     * @return полученную таблицу функций по умолчанию
+     * Fills the function table with default functions.
+     * @return The obtained default function table.
      */
-    private HashMap<String, Function> getFunctionMap()
+    private HashMap<String, IFunction> getFunctionMap() throws RuntimeException
      {
-        HashMap<String, Function> functionTable = new HashMap<>();
+        HashMap<String, IFunction> functionTable = new HashMap<>();
         functionTable.put("min", args -> {
             if (args.isEmpty()){
                 throw new RuntimeException("No arguments for function min");
@@ -147,24 +182,25 @@ public class Calculator {
      }
 
     /**
-     * Считывание значения переменной из входного потока консоил
-     * @param name имя считываемой переменной
-     * @return считанное значение
+     * Reads the value of a variable from the console input stream.
+     * @param name Name of the variable to be read.
+     * @return The read value.
      */
      private double getUserVariable(String name){
          Scanner scanner = new Scanner(System.in);
          System.out.print("Enter value for variable " + name + ": ");
-         return scanner.nextDouble();
+         return processExpression(scanner.next());
      }
 
     /**
-     * Лексический анализ выражения, разбиение на токены
-     * @param expressionText разбираемое выражение
-     * @return список присуствующих лексем
+     * Lexical analysis of the expression, breaking it down into tokens.
+     * @param expressionText The expression to be parsed.
+     * @return The list of present lexemes.
      */
     private List<Lexeme> lexAnalyze(String expressionText){
          ArrayList<Lexeme> lexemes = new ArrayList<>();
          int position = 0;
+         int bracketBalance = 0;
          while(position<expressionText.length())
          {
              char c = expressionText.charAt(position);
@@ -172,11 +208,13 @@ public class Calculator {
                  case '(':{
                      lexemes.add(new Lexeme(LexemeType.LEFT_BRACKET, c));
                      position+=1;
+                     bracketBalance+=1;
                      continue;
                  }
                  case ')': {
                      lexemes.add(new Lexeme(LexemeType.RIGHT_BRACKET, c));
                      position+=1;
+                     bracketBalance-=1;
                      continue;
                  }
                  case '+': {
@@ -255,11 +293,15 @@ public class Calculator {
              }
          }
          lexemes.add(new Lexeme(LexemeType.EOF, "" ));
+         if (bracketBalance!=0)
+         {
+             throw  new RuntimeException("Bracket imbalance");
+         }
          return lexemes;
     }
 
     /**
-     * Буффер лексем, по которому перемещается калькулятор во время вычисления
+     * Lexeme buffer, which the calculator traverses during computation.
      */
     private class LexemeBuffer{
         private int position;
@@ -279,10 +321,10 @@ public class Calculator {
      }
 
     /**
-     * Вычисление выражения, точка начала спуска по приоритетам операция, начиная с меньшего приоритета:
+     * Evaluates the expression, starting with the lowest priority operation:
      * plusminus -> multdiv -> factor -> function
-     * @param lexemeBuffer обрабатываемый буфер лексем
-     * @return результат вычисленного выражения
+     * @param lexemeBuffer The processed lexeme buffer.
+     * @return The result of the evaluated expression.
      */
     private  double expr(LexemeBuffer lexemeBuffer)
     {
@@ -296,9 +338,9 @@ public class Calculator {
     }
 
     /**
-     * Вычисление выражений арифметического сложения
-     * @param lexemeBuffer обрабатываемый буфер лексем
-     * @return результат вычисленного выражения
+     * Evaluates arithmetic addition expressions.
+     * @param lexemeBuffer The processed lexeme buffer.
+     * @return The result of the evaluated expression.
      */
     private double plusminus(LexemeBuffer lexemeBuffer)
     {
@@ -322,9 +364,9 @@ public class Calculator {
     }
 
     /**
-     * Вычисление выражений умножения и деления
-     * @param lexemeBuffer обрабатываемый буфер лексем
-     * @return результат вычисленного выражения
+     * Evaluates multiplication and division expressions.
+     * @param lexemeBuffer The processed lexeme buffer.
+     * @return The result of the evaluated expression.
      */
     private double multdiv(LexemeBuffer lexemeBuffer)
     {
@@ -348,9 +390,9 @@ public class Calculator {
     }
 
     /**
-     * Вычисление самого внутреннего множителя
-     * @param lexemeBuffer обрабатываемый буфер лексем
-     * @return результат вычисленного выражения
+     * Evaluates the innermost factor.
+     * @param lexemeBuffer The processed lexeme buffer.
+     * @return The result of the evaluated expression.
      */
     private double factor(LexemeBuffer lexemeBuffer)
      {
@@ -381,9 +423,9 @@ public class Calculator {
      }
 
     /**
-     * Вычисление используемых функций
-     * @param lexemeBuffer обрабатываемый буфер лексем
-     * @return результат вычисленного выражения
+     * Evaluates the used functions.
+     * @param lexemeBuffer The processed lexeme buffer.
+     * @return The result of the evaluated expression.
      */
     private double func(LexemeBuffer lexemeBuffer){
          String functionName = lexemeBuffer.next().value;

@@ -1,12 +1,18 @@
 package org.lab2;
 
 import org.lab2.calculator.Calculator;
-import org.lab2.calculator.Function;
 
-import java.util.List;
 import java.util.Scanner;
 
+/**
+ * Example of usage of Calculator
+ */
 public class Main {
+    /**
+     * Main method demonstrating the usage of the Calculator class.
+     * It creates an instance of Calculator, adds a custom function, and continuously prompts the user for expressions to evaluate.
+     * @param args Command-line arguments (not used in this example).
+     */
     public static void main(String[] args) {
         Calculator calculator = new Calculator();
 
@@ -17,15 +23,22 @@ public class Main {
             return sum;
         });
         Scanner in = new Scanner(System.in);
-        while (true)
+        boolean status = true;
+        while (status)
         {
-        System.out.print("Введите выражение: ");
+        System.out.print("Expression: ");
         String expression = in.nextLine();
-        try {
-            System.out.println("Результат:" + calculator.processExpression(expression));
+        if (expression!="")
+        {
+            try {
+                System.out.println("Result:" + calculator.processExpression(expression));
+                }
+            catch (Exception e){
+                e.printStackTrace();
+                }
         }
-        catch (Exception e){
-            System.out.println(e);
+        else {
+            status = false;
         }
         }
     }

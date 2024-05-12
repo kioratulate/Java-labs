@@ -18,25 +18,29 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 
 /**
- * Performance comparison of ArrayList and LinkedList
+ * Performance comparison of ArrayList and LinkedList.
  */
 public class Main {
     /**
-     * Number of tests
+     * Number of tests.
      */
     static int numTests = 5;
     /**
-     * Output formatting
+     * Output formatting.
      */
     static String format = "|%-25s|%-8s|%-11s|%-8s|%n";
     /**
-     * Generator of elements for methods
+     * Generator of elements for methods.
      */
     public static IGenerateElement<Integer> generateElementInteger = () -> 0;
     /**
-     * Generator of elements for methods
+     * Generator of elements for methods.
      */
     public static IGenerateElement<String> generateElementString = () -> "A";
+
+    /**
+     * Measuring of Collection method Add
+     */
     public static void testAddCollection(){
         for(int numOperation=50000; numOperation<=1000000; numOperation*=5){
             double arrayAvg = 0;
@@ -59,6 +63,10 @@ public class Main {
             System.out.printf(format, "Add Collection", numOperation/1000+"k", "Linked List", linkedAvg/numTests);
         }
     }
+
+    /**
+     * Measuring of List method Add First
+     */
     public static void testAddFirstToList(){
         for(int numOperation=50000; numOperation<=1000000; numOperation*=5){
             double arrayAvg = 0;
@@ -81,6 +89,9 @@ public class Main {
             System.out.printf(format, "Add First to List", numOperation/1000+"k", "Linked List", linkedAvg/numTests);
         }
     }
+    /**
+     * Measuring of List method Add Last
+     */
     public static void testAddLastToList(){
         for(int numOperation=50000; numOperation<=1000000; numOperation*=5){
             double arrayAvg = 0;
@@ -103,6 +114,9 @@ public class Main {
             System.out.printf(format, "Add Last to List", numOperation/1000+"k", "Linked List", linkedAvg/numTests);
         }
     }
+    /**
+     * Measuring of List method Add Middle
+     */
     public static void testAddMiddleToList(){
         for(int numOperation=50000; numOperation<=1000000; numOperation*=5){
             double arrayAvg = 0;
@@ -125,6 +139,9 @@ public class Main {
             System.out.printf(format, "Add Middle to List", numOperation/1000+"k", "Linked List", linkedAvg/numTests);
         }
     }
+    /**
+     * Measuring of Collection method Remove
+     */
     public static void testRemoveCollection(){
         for(int numOperation=50000; numOperation<=1000000; numOperation*=5){
             double arrayAvg = 0;
@@ -152,6 +169,9 @@ public class Main {
             System.out.printf(format, "Remove from collection", numOperation/1000+"k", "Linked List", linkedAvg/numTests);
         }
     }
+    /**
+     * Measuring of List method Remove First
+     */
     public static void testRemoveFirst(){
         for(int numOperation=50000; numOperation<=1000000; numOperation*=5){
             double arrayAvg = 0;
@@ -179,6 +199,9 @@ public class Main {
             System.out.printf(format, "Remove First From List", numOperation/1000+"k", "Linked List", linkedAvg/numTests);
         }
     }
+    /**
+     * Measuring of List method Remove Last
+     */
     public static void testRemoveLast(){
         for(int numOperation=50000; numOperation<=1000000; numOperation*=5){
             double arrayAvg = 0;
@@ -206,6 +229,9 @@ public class Main {
             System.out.printf(format, "Remove Last From List", numOperation/1000+"k", "Linked List", linkedAvg/numTests);
         }
     }
+    /**
+     * Measuring of List method Remove Middle
+     */
     public static void testRemoveMiddle(){
         for(int numOperation=50000; numOperation<=1000000; numOperation*=5){
             double arrayAvg = 0;
@@ -234,6 +260,9 @@ public class Main {
         }
     }
 
+    /**
+     * Measuring of List method Get First
+     */
     static void testGetFirst(){
         for(int numOperation=50000; numOperation<=1000000; numOperation*=5){
             double arrayAvg = 0;
@@ -261,6 +290,9 @@ public class Main {
             System.out.printf(format, "Get First From List", numOperation/1000+"k", "Linked List", linkedAvg/numTests);
         }
     }
+    /**
+     * Measuring of List method Get Last
+     */
     static void testGetLast(){
             for(int numOperation=50000; numOperation<=1000000; numOperation*=5){
                 double arrayAvg = 0;
@@ -288,6 +320,9 @@ public class Main {
                 System.out.printf(format, "Get Last From List", numOperation/1000+"k", "Linked List", linkedAvg/numTests);
             }
         }
+    /**
+     * Measuring of List method Get Middle
+     */
     static void testGetMiddle(){
         for(int numOperation=50000; numOperation<=1000000; numOperation*=5){
             double arrayAvg = 0;
@@ -315,6 +350,9 @@ public class Main {
             System.out.printf(format, "Get Last From List", numOperation/1000+"k", "Linked List", linkedAvg/numTests);
         }
     }
+    /**
+     * Measuring of Collection method Clear
+     */
     static void testClear(){
 
         for(int numOperation=50000; numOperation<=1000000; numOperation*=5){
@@ -343,6 +381,11 @@ public class Main {
             System.out.printf(format, "Clear Collection", numOperation/1000+"k", "Linked List", linkedAvg/numTests);
         }
     }
+    /**
+     * Main method to initiate performance tests.
+     *
+     * @param args Command line arguments (unused).
+     */
     public static void main(String[] args) {
 
         System.out.printf(format, "OP.NAME", "OP.COUNT", "COLLECTION", "TIME(ms)");

@@ -2,42 +2,42 @@ package org.lab3.common;
 
 
 /**
- * An instrument to test performance of given method
- * @param <T> type of content in testing collection
+ * An instrument to test the performance of a given method on a collection.
+ * @param <T> the type of content in the testing collection
  */
 public class CollectionMethodPerformanceMeasure<T> {
     /**
-     * Number of operation to measure
+     * Number of operations to measure.
      */
     private long numOperations;
     /**
-     * Measured summarised time of numOperations operations tested in nanos
+     * Measured summarized time of numOperations operations tested in nanoseconds.
      */
     private long time;
     /**
-     * IMethod to test
+     * The method to test.
      */
     private IMethod<T> method;
     /**
-     * Change testing method(time will be set to 0)
-     * @param method new method
+     * Changes the testing method (time will be set to 0).
+     * @param method the new method to test
      */
     public void setMethod(IMethod<T> method) {
         time = 0;
         this.method = method;
     }
     /**
-     * Change number of tested operations (time will be set to 0)
-     * @param numOperations new number of operations
+     * Changes the number of tested operations (time will be set to 0).
+     * @param numOperations the new number of operations to test
      */
     public void setNumOperations(long numOperations) {
         time = 0;
         this.numOperations = numOperations;
     }
     /**
-     * Creates tester for concrete operation
-     * @param numOperations number of operations to test
-     * @param method entity that provides method to test
+     * Creates a tester for a concrete operation.
+     * @param numOperations the number of operations to test
+     * @param method the entity that provides the method to test
      */
     public CollectionMethodPerformanceMeasure(long numOperations, IMethod<T> method) {
         this.numOperations = numOperations;
@@ -46,7 +46,7 @@ public class CollectionMethodPerformanceMeasure<T> {
     }
 
     /**
-     * Applying given method and measuring time
+     * Applies the given method and measures the time.
      */
     public void testCollectionMethod(){
         time = 0;
@@ -60,8 +60,8 @@ public class CollectionMethodPerformanceMeasure<T> {
     }
 
     /**
-     * Return measured time, if no tested were performed returns 0
-     * @return measured time or 0
+     * Returns the measured time. If no tests were performed, returns 0.
+     * @return the measured time or 0
      */
     public long getResult() {
         return time;

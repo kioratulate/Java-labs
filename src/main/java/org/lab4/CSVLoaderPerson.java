@@ -7,26 +7,47 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * Loader for Person objects from CSV files
- * @param <T> type of List in which objects are stored
+ * A loader for Person objects from CSV files.
+ *
+ * @param <T> The type of List in which objects are stored.
  */
 public class CSVLoaderPerson<T extends List<Person>> extends CSVLoader<T, Person> {
 
-
+    /**
+     * Constructs a CSVLoaderPerson with the specified path.
+     *
+     * @param list The existing list of Persons to which new Persons will be added.
+     * @param path The relative path to the file.
+     */
     public CSVLoaderPerson(T list, String path) {
         super(list, path);
     }
 
+    /**
+     * Constructs a CSVLoaderPerson with the specified path and separator.
+     *
+     * @param list      The existing list of Persons to which new Persons will be added.
+     * @param path      The relative path to the file.
+     * @param separator The separator character.
+     */
     public CSVLoaderPerson(T list, String path, char separator) {
         super(list, path, separator);
     }
 
+    /**
+     * Constructs a CSVLoaderPerson with the specified reader.
+     *
+     * @param list      The existing list of Persons to which new Persons will be added.
+     * @param csvReader The desired reader.
+     */
     public CSVLoaderPerson(T list, CSVReader csvReader) {
         super(list, csvReader);
     }
 
     /**
-     * Reading E class from CSV into existing concrete implementation of List
+     * Reads Person objects from CSV into the existing concrete implementation of List with Person.
+     *
+     * @param list The existing list.
      */
     @Override
     void csvToList(T list) {

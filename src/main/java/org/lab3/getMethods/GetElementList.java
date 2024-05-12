@@ -6,28 +6,26 @@ import org.lab3.common.IMethod;
 import java.util.List;
 
 /**
- * Abstract class for Get methods of List
- * @param <T> implementation of List, for example ArrayList
- * @param <E> type of content of the list
+ * Abstract class for retrieving elements from a List.
  */
 public abstract class GetElementList<T extends List<E>, E> implements IMethod<E> {
     /**
-     * Testing list
+     * The list being tested.
      */
     T list;
     /**
-     * Index for get method
+     * The index used for the get method.
      */
     int ind;
     /**
-     * Used generator
+     * The generator used.
      */
     IGenerateElement<E> generateElement;
 
     /**
-     * Constructor with specified generateElement and existing list
-     * @param list existing list
-     * @param generateElement a function that creates specific to method elements
+     * Constructs a GetElementList with the specified generator and existing list.
+     * @param list The existing list.
+     * @param generateElement A function that creates elements specific to the method.
      */
     public GetElementList(T list, IGenerateElement<E> generateElement) {
         this.list = list;
@@ -35,11 +33,8 @@ public abstract class GetElementList<T extends List<E>, E> implements IMethod<E>
     }
 
     /**
-     * Method to be tested
-     * WARNING! Inside this method should not be any unnecessary operations,
-     * or performance measurement won't be correct
-     *
-     * @param elem element that needs to be provided
+     * The method to be tested.
+     * @param elem The element that needs to be provided.
      */
     @Override
     public void apply(E elem) {
@@ -47,9 +42,8 @@ public abstract class GetElementList<T extends List<E>, E> implements IMethod<E>
     }
 
     /**
-     * Sets index at which will be passed into get
-     *
-     * @return element that required by method
+     * Sets the index at which will be passed into get.
+     * @return The element required by the method.
      */
     @Override
     public abstract E prepareToApply();
