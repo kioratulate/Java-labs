@@ -10,7 +10,7 @@ class CSVLoaderPersonTest {
     @Test
     void loadPersonfromCSV(){
             ArrayList<Person> persons = new ArrayList<>();
-            CSVLoaderPerson<ArrayList<Person>> csvLoaderPerson = new CSVLoaderPerson<>(persons, "/test.csv", ';');
+            CSVLoaderPerson<ArrayList<Person>> csvLoaderPerson = new CSVLoaderPerson<>(persons, "/foreign_names_short.csv", ';');
         assertFalse(persons.isEmpty());
     }
 }
