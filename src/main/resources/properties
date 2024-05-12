@@ -1,0 +1,2 @@
+org.lab5.SomeInterface=org.lab5.SomeImpl
+org.lab5.SomeOtherInterface=org.lab5.OtherImpl
